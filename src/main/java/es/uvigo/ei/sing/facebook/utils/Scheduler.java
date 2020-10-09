@@ -45,6 +45,7 @@ public class Scheduler {
     // Execute at the beginning of each day
     @Scheduled(cron = "0 0 0 * * *")
     @SuppressWarnings("Duplicates")
+    // @Scheduled(cron = "0 * * * * *")
     public void runController() {
         log.info("Starting the retrieval of information...");
 
@@ -73,7 +74,7 @@ public class Scheduler {
             } else {
                 // If page is parsed, get insights and comments only for posts with keep_updating to true
                 // Get also the non parsed nodes that may be left
-                posts = nodeService.findByKeepUpdatingAndNotParsedPosts(pageEntity.getExternalId());
+                posts = nodeService.findByKeepUpdatingOrNotParsedPosts(pageEntity.getExternalId());
             }
             posts.forEach(post -> {
                 boolean parsed = true;
@@ -112,7 +113,7 @@ public class Scheduler {
             } else {
                 // If page is parsed, get insights and comments only for videos with keep_updating to true
                 // Get also the non parsed nodes that may be left
-                videos = nodeService.findByKeepUpdatingVideosAndNotParsed(pageEntity.getExternalId());
+                videos = nodeService.findByKeepUpdatingVideosOrNotParsed(pageEntity.getExternalId());
             }
             videos.forEach(video -> {
                 boolean parsed = true;
@@ -148,7 +149,6 @@ public class Scheduler {
                 pageService.save(pageEntity);
             }
         } catch (FacebookOAuthException e) {
-            // TODO: 27/05/2020 Handle errors based on Facebook error codes = https://developers.facebook.com/docs/graph-api/using-graph-api/error-handling/?locale=es_ES
             // TODO: 26/05/2020 Put this in a while(finish) and set a sleep time based on the error code of this exception (remove @retry)
             log.error("Application request limit reached, waiting one hour... FacebookOAuthException: {}", e);
             throw e;

@@ -45,8 +45,8 @@ public class NodeService {
         return postRepository.findByPage_ExternalIdAndKeepUpdatingTrue(pageId);
     }
 
-    public Set<NodeEntity> findByKeepUpdatingAndNotParsedPosts(String pageId) {
-        return postRepository.findByPage_ExternalIdAndKeepUpdatingTrueAndParsedFalse(pageId);
+    public Set<NodeEntity> findByKeepUpdatingOrNotParsedPosts(String pageId) {
+        return postRepository.findByPage_ExternalIdAndKeepUpdatingTrueOrParsedFalse(pageId);
     }
 
     public Set<NodeEntity> findNotParsedPosts(String pageId) {
@@ -61,8 +61,8 @@ public class NodeService {
         return videoRepository.findByPage_ExternalIdAndKeepUpdatingTrue(pageId);
     }
 
-    public Set<NodeEntity> findByKeepUpdatingVideosAndNotParsed(String pageId) {
-        return videoRepository.findByPage_ExternalIdAndKeepUpdatingTrueAndParsedFalse(pageId);
+    public Set<NodeEntity> findByKeepUpdatingVideosOrNotParsed(String pageId) {
+        return videoRepository.findByPage_ExternalIdAndKeepUpdatingTrueOrParsedFalse(pageId);
     }
 
     public Set<NodeEntity> findNotParsedVideos(String externalId) {

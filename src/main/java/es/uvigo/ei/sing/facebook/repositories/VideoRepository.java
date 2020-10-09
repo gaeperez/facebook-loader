@@ -14,7 +14,7 @@ public interface VideoRepository extends CrudRepository<VideoEntity, Integer> {
 
     Set<NodeEntity> findByPage_ExternalIdAndKeepUpdatingTrue(String pageId);
 
-    Set<NodeEntity> findByPage_ExternalIdAndKeepUpdatingTrueAndParsedFalse(String pageId);
+    Set<NodeEntity> findByPage_ExternalIdAndKeepUpdatingTrueOrParsedFalse(String pageId);
 
     Set<NodeEntity> findAllByPage_ExternalId(String pageId);
 
